@@ -194,7 +194,7 @@ bash$
 """
 ```
 
-Argparse provides a modern approach to parsing command line arguments. For further reference, please refer to the (official argparse documentation)[https://docs.python.org/3/library/argparse.html]. Also, you may wish to reference the `system` and `os` modules, which are often used together with argparse.  
+Argparse provides a modern approach to parsing command line arguments. For further reference, please refer to the [official argparse documentation](https://docs.python.org/3/library/argparse.html). Also, you may wish to reference the `system` and `os` modules, which are often used together with argparse.  
 
 # 4.2 Logical Logging
 # 4.3 Potent PDB
