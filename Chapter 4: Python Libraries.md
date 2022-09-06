@@ -1,13 +1,13 @@
 # Chapter 4: Python Libraries
 
 4. [Python Libraries](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#chapter-4-python-libraries)
-  - 4.1 [Agreeable Argparse](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#chapter-4-agreeable-argparse)
-  - 4.2 [Logical Logging](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#chapter-4-logical-logging)
-  - 4.3 [Potent PDB](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#chapter-4-potent-pdb)
-  - 4.4 [Nifty NumPy](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#chapter-4-nifty-numpy)
-  - 4.5 [Practical Pandas](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#chapter-4-practical-pandas)
-  - 4.6 [Pretty Pickle](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#chapter-4-pretty-pickle)
-  - 4.7 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#chapter-4-python-libraries)
+  - 4.1 [Agreeable Argparse](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#41-agreeable-argparse)
+  - 4.2 [Logical Logging](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#42-logical-logging)
+  - 4.3 [Potent PDB](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#43-potent-pdb)
+  - 4.4 [Nifty NumPy](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#44-nifty-numpy)
+  - 4.5 [Practical Pandas](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#45-practical-pandas)
+  - 4.6 [Pretty Pickle](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#46-pretty-pickle)
+  - 4.7 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#47-python-libraries)
 
 # 4.1 Agreeable Argparse
 
@@ -202,3 +202,6 @@ Argparse provides a modern approach to parsing command line arguments. For furth
 # 4.5 Practical Pandas
 # 4.6 Pretty Pickle
 # 4.7 Succinct Summary
+
+Copyright © 2022 Ning Wang  
+[Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
