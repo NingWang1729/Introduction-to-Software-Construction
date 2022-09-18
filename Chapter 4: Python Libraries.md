@@ -194,10 +194,84 @@ bash$
 """
 ```
 
-Argparse provides a modern approach to parsing command line arguments. For further reference, please refer to the [official argparse documentation](https://docs.python.org/3/library/argparse.html). Also, you may wish to reference the `system` and `os` modules, which are often used together with argparse.  
+Argparse provides a modern approach to parsing command line arguments. For further reference, please refer to the [official argparse documentation](https://docs.python.org/3/library/argparse.html). Also, you may wish to reference the `system` and `os` modules, which are sometimes used together with argparse.  
 
 # 4.2 Logical Logging
+Python is a high level language, which means it provides many syntactic sugars to make it easier for the programmer to write code, abstracting away the lower level implementations of the code. For example, while the `print` function will output some text, it does not immediately execute the print operation after the line of code telling Python to print is executed. This may be problematic if you were expecting the `print` statement to provide a log of how the program is performing as it is running in real time. While you could set the "flush" argument to 'True', forcing the print statement to immediately execute, manually formatting every print statement would be both tedious and redundant when you could simply use the Python logging module. 
+
+To import the logging module, simply `import logging`. To mimic the behavior of print statements, you can use the lowest level of logging, which is "DEBUG". There are 6 default levels of logging, which are "NOTSET", "DEBUG", "INFO", "WARNING", "ERROR", and "CRITICAL", which have the numerical values of 0, 10, 20, 30, 40, and 50 respectively. If you were to use your own levels, they should account for the numerical levels relative to the default values. To output a log message with a specified level, you can simply call that level's respective method, with the string you would like to output as the argument.  
+
+```
+import logging
+logging.debug('Hello World!')
+```
+
+With all these levels of logging, it can become overwhelming to decide which levels to use. The logging levels offer an alternative to using multiple if statements to toggle verbosity manually. To set a basic configuration to use for most instances, you can take advantage of the `basicConfig` method, where you can set options such as a level of logging to display and a format string to use. However, this basic configuration must come first before any other logging. It will not be able to override any existing settings you may have set earlier.  
+
+```
+format = "%(levelname)s - %(funcName)s - %(lineno)d - %(asctime)s - %(message)s"
+logging.basicConfig(level = logging.WARNING, format = format)
+```
+
+Note that in the format string, we are passing in multiple attributes from the LogRecord. You can also use `string.format()`  For a complete list of attributes, please refer to the [Official LogRecord Attributes Documentation](https://docs.python.org/3/library/logging.html#logrecord-attributes).  
+
+
+The level indicates which level of logging you would like to display. This can be combined with argparse to set specific verbosity levels. To change the level afterwards, you can use the `setLevel` method.  
+
+```
+logging.setLevel(logging.ERROR)
+```
+
+The logging module can be as simple or as complex as you wish it to be. Currently, we have covered the basics of setting levels using the logging module directly. You can also create named logger objects for each file you use, as well as custom handler and formatter objects. This works similarly to creating argparse instances and attaching objects to the parsers.  
+
+```
+import logging
+
+# Initiate logging object
+logger = logging.getLogger(__name__)
+
+# Initialize handlers
+default_handler = logging.StreamHandler()
+logger.addHandler(default_handler)
+verbose_handler = logging.FileHandler(logfile) # Assume passed in via argparse
+logger.addHandler(verbose_handler)
+
+# Initialize logging level
+default_handler.setLevel(logging.ERROR)
+verbose_handler.setLevel(logging.DEBUG)
+
+# Initialize formatters
+default_format = logging.Formatter("%(levelname)s - %(filename)s - %(funcName)s - %(lineno)d - %(asctime)s - %(message)s")
+default_handler.setFormatter(default_format)
+verbose_format = logging.Formatter("%(levelname)s - %(pathname)s - %(funcName)s - %(lineno)d - %(asctime)s - %(message)s")
+verbose_handler.setFormatter(verbose_format)
+```
+
+Finally, it is useful to log exceptions that may occur in your code. In Python, we can use try-except blocks to catch exceptions. Additionally, it is highly recommended to use specific exceptions rather than a general catch all. We will use the following integer division code to demonstrate how the logging module can be used with exception handling. For more information on Python exceptions, please refer to the [Official Built-in Exceptions Documentation](https://docs.python.org/3/library/exceptions.html).  
+
+```
+import logging
+
+try:
+	# Load two numbers
+	a = int(input())
+	b = int(input())
+except ValueError:
+	# Non integer inputs
+	logging.error("Inputs must be integers!")
+except ZeroDivisionError:
+	# Division by zero
+	logging.error("Divison by Zero is undefined.")
+except Exception as e:
+	# Unexpected exception
+	logging.error("Unexpected exception", exc_info=True)
+```
+
+Furthermore, you can add more detailed filters as well as adjust module level settings. If you are interested in more complex usage of the logging module, please refer to the [Official Logging Documentation](https://docs.python.org/3/library/logging.html).
+
 # 4.3 Potent PDB
+
+
 # 4.4 Nifty Numpy
 # 4.5 Practical Pandas
 # 4.6 Pretty Pickle
