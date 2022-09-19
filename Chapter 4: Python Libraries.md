@@ -270,7 +270,146 @@ except Exception as e:
 Furthermore, you can add more detailed filters as well as adjust module level settings. If you are interested in more complex usage of the logging module, please refer to the [Official Logging Documentation](https://docs.python.org/3/library/logging.html).
 
 # 4.3 Potent PDB
+It would be remiss to discuss logging and debugging without mentioning the built in Python debugger, pdb. The pdb module can be used either as a module import, or on the command line. For the purposes of this tutorial, we will use pdb while executing the command line temperature script. Note that "(Pdb)" is the prompt for executing debugging instructions.  
 
+```
+bash$ python3 -m pdb temperature_conversion.py -t 20 -cf
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(2)<module>()
+-> import argparse
+(Pdb) 
+```
+
+At the first line of our script, we see that we have "import argparse". The "->" arrow indicates which line is next to be executed. To execute this line of code and move on to the next line, we can enter "n(ext)". The parenthesis indicate the full command, with the first letter being the shorthand notation. Thus, you can either enter the word "next", or just the letter, 'n'.  
+
+```
+(Pdb) next
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(6)<module>()
+-> def celsius_to_fahrenheit(temp):
+```
+
+In our code, we see numerous function declarations. We will want to call this "celsius\_to\_fahrenheit" function later, so we will run the code "unt(il)" the line after the end of this function. Note that the debugger will skip empty lines and stop after it reaches a line greater than or equal to the input number.  
+
+```
+(Pdb) until 9
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(11)<module>()
+-> def celsius_to_kelvin(temp):
+(Pdb) 
+```
+
+If we wanted to check "w(here)" we are in our call stack, or "l(ist)" the surrounding lines of code, we can use these respective commands to find our position. Also, we can adjust how many lines to display, with the default being 11 lines. You can also specify a range of lines to display.  
+
+```
+(Pdb) w
+  /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/bdb.py(597)run()
+-> exec(cmd, globals, locals)
+  <string>(1)<module>()
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(11)<module>()
+-> def celsius_to_kelvin(temp):
+(Pdb) l
+  6  	def celsius_to_fahrenheit(temp):
+  7  	    # Convert Celsius to Fahrenheit
+  8  	    return (temp * 9 / 5) + 32
+  9  	
+ 10  	
+ 11  ->	def celsius_to_kelvin(temp):
+ 12  	    # Convert Celsius to Kelvin
+ 13  	    return temp + 273.15
+ 14  	
+ 15  	
+ 16  	def fahrenheit_to_celsius(temp):
+(Pdb) l .
+  6  	def celsius_to_fahrenheit(temp):
+  7  	    # Convert Celsius to Fahrenheit
+  8  	    return (temp * 9 / 5) + 32
+  9  	
+ 10  	
+ 11  ->	def celsius_to_kelvin(temp):
+ 12  	    # Convert Celsius to Kelvin
+ 13  	    return temp + 273.15
+ 14  	
+ 15  	
+ 16  	def fahrenheit_to_celsius(temp):
+(Pdb) l 9,15
+  9  	
+ 10  	
+ 11  ->	def celsius_to_kelvin(temp):
+ 12  	    # Convert Celsius to Kelvin
+ 13  	    return temp + 273.15
+ 14  	
+ 15  	
+(Pdb) 
+```
+
+Since we will not be executing all these functions given our command line arguments, we can "j(ump)" ahead in our code. This command requires specifying a line to jump to, which can be either earlier or later in the code. However, some parts of the code cannot be jumped into, i.e. into the middle of a for loop.  
+
+```
+(Pdb) j 36
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(36)<module>()
+-> # Main function
+(Pdb) 
+```
+
+With debuggers, it is often useful to set breakpoints. Now that we reached our "if \_\_name\_\_ == '\_\_main\_\_'", we can set a "b(reak)" point at where we call our temperature conversion function by specifying the line number.  
+
+```
+(Pdb) b 68
+Breakpoint 1 at /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py:68
+(Pdb) 
+```
+
+With a break point set, we can "c(ontinue)" until we reach the end of our code or the first break point we encounter from our current location in the code. Altogether, the "unt(il)", "b(reak)", and "c(ontinue)" commands allow easy control over the program over an extended number of lines of code to run. This is especially helpful when you may need to repeat multiple lines of code in a loop.  
+
+```
+(Pdb) continue
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(68)<module>()
+-> print(celsius_to_fahrenheit(args.temp))
+(Pdb) 
+```
+
+Here, we see that we have two function calls. The `print` function is being passed a function call to the `celsius\_to\_fahrenheit` function, which in turn takes in the "temp" argument. Before we "s(tep)" into our functions, we can take a look at the current state of our identifiers in our program.  
+
+```
+(Pdb) args.temp
+temp = 20.0
+(Pdb) args
+temp = 20.0
+(Pdb) print(args)
+Namespace(temp=20.0, room=20, verbose=False, celsius_to_fahrenheit=True, celsius_to_kelvin=False, fahrenheit_to_celsius=False, fahrenheit_to_kelvin=False, kelvin_to_celsius=False, kelvin_to_fahrenheit=False)
+```
+
+To "s(tep)" into a function, we will move from the current line of code to inside the code for the function we are stepping into. Here, we first step into print, which in turn calls the `celsius\_to\_fahrenheit` function.  
+
+```
+(Pdb) s
+--Call--
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(6)celsius_to_fahrenheit()
+-> def celsius_to_fahrenheit(temp):
+(Pdb) n
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(8)celsius_to_fahrenheit()
+-> return (temp * 9 / 5) + 32
+(Pdb) n
+--Return--
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(8)celsius_to_fahrenheit()->68.0
+-> return (temp * 9 / 5) + 32
+(Pdb) n
+68.0
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(71)<module>()
+-> if args.verbose:
+(Pdb) 
+```
+
+After the `return`, the `print` function is then able to print the resulting temperature, "68.0", to the console. As we have finished examining the code that we will be running, we can simply "c(ontinue)" until we reach the end of the program and "exit" the debugger. Alternatively, you can exit the debugger at any point in time using `Ctrl+D`.  
+
+```
+(Pdb) c
+The program finished and will be restarted
+> /Users/foobar/Introduction-to-Software-Construction/temperature_conversion.py(2)<module>()
+-> import argparse
+(Pdb) exit
+bash$ 
+```
+
+Here, we demonstrated some of the basic usages of the built-in Python debugger, pdb. Debugging is an important skill for software construction, and the pdb debugger is both straight forward and easy to use. For further details and clarification, please refer to the [Official pdb Documentation](https://docs.python.org/3/library/pdb.html).  
 
 # 4.4 Nifty Numpy
 # 4.5 Practical Pandas

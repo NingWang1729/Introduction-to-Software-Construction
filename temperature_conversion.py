@@ -4,27 +4,33 @@ import argparse
 
 # Temperature conversion formulas
 def celsius_to_fahrenheit(temp):
+    # Convert Celsius to Fahrenheit
     return (temp * 9 / 5) + 32
 
 
 def celsius_to_kelvin(temp):
+    # Convert Celsius to Kelvin
     return temp + 273.15
 
 
 def fahrenheit_to_celsius(temp):
+    # Convert Fahrenheit to Celsius
     return (temp - 32) * 5 / 9
 
 
 def fahrenheit_to_kelvin(temp):
+    # Convert Fahrenheit to Celsius and then to Kelvin
     return celsius_to_kelvin(fahrenheit_to_celsius(temp))
 
 
 def kelvin_to_celsius(temp):
+    # Convert Kelvin to Celsius
     return temp - 273.15
 
 
 def kelvin_to_fahrenheit(temp):
-    return kelvin_to_celsius(celsius_to_fahrenheit(temp))
+    # Convert Kelvin to Celsius and then to Fahrenheit
+    return celsius_to_fahrenheit(kelvin_to_celsius(temp))
 
 
 # Main function
@@ -37,7 +43,7 @@ if __name__ == '__main__':
 
     # Add unit conversions
     conversions = parser.add_mutually_exclusive_group()
-    conversions.add_argument('-cf', '--celsius-to-fahrenheit', action='store_false')
+    conversions.add_argument('-cf', '--celsius-to-fahrenheit', action='store_true')
     conversions.add_argument('-ck', '--celsius-to-kelvin', action='store_true')
     conversions.add_argument('-fc', '--fahrenheit-to-celsius', action='store_true')
     conversions.add_argument('-fk', '--fahrenheit-to-kelvin', action='store_true')
@@ -47,18 +53,19 @@ if __name__ == '__main__':
     # Parse arguments
     args = parser.parse_args()
 
-    if args.celsius_to_fahrenheit:
-        print(celsius_to_fahrenheit(args.temp))
-    elif args.celsius_to_kelvin:
-        print(celsius_to_kelvin(args.temp))
+    # Toggle conversion
+    if args.kelvin_to_celsius:
+        print(kelvin_to_celsius(args.temp))
+    elif args.kelvin_to_fahrenheit:
+        print(kelvin_to_fahrenheit(args.temp))
     elif args.fahrenheit_to_celsius:
         print(fahrenheit_to_celsius(args.temp))
     elif args.fahrenheit_to_kelvin:
         print(fahrenheit_to_kelvin(args.temp))
-    elif args.kelvin_to_celsius:
-        print(kelvin_to_celsius(args.temp))
+    elif args.celsius_to_kelvin:
+        print(celsius_to_kelvin(args.temp))
     else:
-        print(kelvin_to_fahrenheit(args.temp))
+        print(celsius_to_fahrenheit(args.temp))
 
     # Check if room temperature is hot
     if args.verbose:
