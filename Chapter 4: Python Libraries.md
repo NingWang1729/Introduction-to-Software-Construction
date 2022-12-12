@@ -412,6 +412,227 @@ bash$
 Here, we demonstrated some of the basic usages of the built-in Python debugger, pdb. Debugging is an important skill for software construction, and the pdb debugger is both straight forward and easy to use. For further details and clarification, please refer to the [Official pdb Documentation](https://docs.python.org/3/library/pdb.html).  
 
 # 4.4 Nifty Numpy
+NumPy is one of the most commonly used packages for data science in Python. While Python has the native `list` data structure, more computational programs will often require large, multi-dimensional arrays. As an interpreted languages, Python is simply too slow for larger applications. However, with compiled C code, packages such as NumPy allow the user to enjoy both the easy to use syntax of Python along with the efficiency of compiled C libraries. NumPy's primary usage revolves the `ndarray`, which allows versatile, multi-dimensional arrays, as well as basic high level math operations. However, unlike `lists`, ndarrays must contain elements of the same type.  
+
+To import NumPy, it is standard to use the following import:
+```
+bash$ python3
+>>> import numpy as np
+```
+
+To create an ndarray, or colloquially, a NumPy array, you can convert an existing `list` object into an ndarray or create an ndarray from scratch.
+
+```
+>>> a = [1, 2, 3]
+>>> a = np.array(a)
+>>> a
+array([1, 2, 3])
+>>> b = np.array([1, 2, 3])
+>>> b
+array([1, 2, 3])
+>>> c = np.array([1, 2, 3, 4])
+>>> c
+array([1, 2, 3, 4])
+>>> d = np.array([[1, 2, 3], [4, 5, 6]])
+>>> d
+array([[1, 2, 3],
+       [4, 5, 6]])
+>>> e = np.array([[1, 2], [3, 4], [5, 6]])
+>>> e
+array([[1, 2],
+       [3, 4],
+       [5, 6]])
+```
+
+To check the dimensions, or shape, of an ndarray, you can simply access the `shape` attribute. This returns a tuple containing the dimensions of your array.  
+
+```
+>>> a.shape
+(3,)
+>>> b.shape
+(3,)
+>>> c.shape
+(4,)
+>>> d.shape
+(2, 3)
+>>> e.shape
+(3, 2)
+```
+
+Given two ndarrays of the same shape, you can perform various matrix operations across the values in the matrix. For example, you can compare the values, add the values, subtract the values, multiply the values, divide the values, or exponentiate the values.  
+
+```
+>>> a == b
+array([ True,  True,  True])
+>>> a + b
+array([2, 4, 6])
+>>> a - b
+array([0, 0, 0])
+>>> a / b
+array([1., 1., 1.])
+>>> a // b
+array([1, 1, 1])
+>>> a * b
+array([1, 4, 9])
+>>> a ** b
+array([ 1,  4, 27])
+```
+
+When working with arrays with different shapes, you may be able to broadcast the shapes of the array depending on whether the matrices have some dimensions that align.  
+
+```
+>>> a + c
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: operands could not be broadcast together with shapes (3,) (4,) 
+>>> a + d
+array([[2, 4, 6],
+       [5, 7, 9]])
+```
+
+To perform matrix operations, you can use some of the matrix operations from NumPy. For example, you can multiply matrices with `np.matmul`. For programs with many matrix multiplications, this may become unwieldy, so instead, you can use the `@` symbol as syntactic sugar for matrix multiplication.  
+
+```
+>>> np.matmul(d, e)
+array([[22, 28],
+       [49, 64]])
+>>> np.matmul(e, d)
+array([[ 9, 12, 15],
+       [19, 26, 33],
+       [29, 40, 51]])
+>>> d @ e
+array([[22, 28],
+       [49, 64]])
+>>> e @ d
+array([[ 9, 12, 15],
+       [19, 26, 33],
+       [29, 40, 51]])
+```
+
+Some operations may differ between what would mathematically be valid and how NumPy can interpret the operation. For example, you can use `np.matmul` to perform a dot product operation between one dimensional matrices of the same shape.  
+
+```
+>>> np.matmul(a, b)
+14
+>>> a @ b
+14
+>>> np.matmul(b, a)
+14
+>>> b @ a
+14
+```
+
+Additionally, matrix operations on one dimensional arrays are more flexible.  
+
+```
+>>> d
+array([[1, 2, 3],
+       [4, 5, 6]])
+>>> a
+array([1, 2, 3])
+>>> np.matmul(d, a)
+array([14, 32])
+>>> d @ a
+array([14, 32])
+```
+
+To change the shape of an array, you can use the `np.reshape()` function. This keeps the data within the array but changes the order of the elements. Alternatively, you can invoke the `reshape` method on an ndarray.  
+```
+>>> np.reshape(a, (3, 1))
+array([[1],
+       [2],
+       [3]])
+>>> a.reshape((3,1))
+array([[1],
+       [2],
+       [3]])
+>>> a
+array([1, 2, 3])
+>>> d @ a.reshape((3,1))
+array([[14],
+       [32]])
+```
+
+By default, this follows the row-major ordering in C-like languages. You can specify the ordering you wish using the `order` optional parameter.  
+
+```
+>>> d.reshape((3, 2), order='F')
+array([[1, 5],
+       [4, 3],
+       [2, 6]])
+```
+
+Furthermore, if you do not know the full dimensions of your array, but would like a specific earlier dimensions in the shape, you can use -1 to allow NumPy to infer the shape of your reshaped ndarray, as long as the total size is divisible by your specified dimensions.  
+
+```
+>>> d.reshape((6, -1))
+array([[1],
+       [2],
+       [3],
+       [4],
+       [5],
+       [6]])
+>>> d.reshape((4, -1))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: cannot reshape array of size 6 into shape (4,newaxis)
+```
+
+Given any ndarray, you can "flatten" the array by using the `ravel()` method. This returns a copy of the values in the array in one dimension. This has the effect of reshaping to dimensions (-1).  
+
+```
+>>> d.ravel()
+array([1, 2, 3, 4, 5, 6])
+>>> d.reshape((-1))
+array([1, 2, 3, 4, 5, 6])
+```
+
+Additionally, it is often useful to generate an array of zeros or ones of the same shape as an existing ndarray. Luckily, we can use `np.zeroes_like()` and `np.ones_like()` functions to create such ndarrays.  
+
+```
+>>> np.zeros_like(d)
+array([[0, 0, 0],
+       [0, 0, 0]])
+>>> np.ones_like(d)
+array([[1, 1, 1],
+       [1, 1, 1]])
+```
+
+Like lists, you can use slicing to access a view of an ndarray using the same syntax as you would with slice lists.  
+
+```
+>>> a[0]
+1
+>>> a[:-1]
+array([1, 2])
+>>> d[0]
+array([1, 2, 3])
+>>> d[0][:-1]
+array([1, 2])
+>>> d.ravel()[::2]
+array([1, 3, 5])
+```
+
+Finally, you can apply basic mathematical functions to elements in an ndarray.  
+
+```
+>>> np.max(d)
+6
+>>> np.min(d)
+1
+>>> np.log(d)
+array([[0.        , 0.69314718, 1.09861229],
+       [1.38629436, 1.60943791, 1.79175947]])
+>>> np.cos(d)
+array([[ 0.54030231, -0.41614684, -0.9899925 ],
+       [-0.65364362,  0.28366219,  0.96017029]])
+>>> np.sin(d)
+array([[ 0.84147098,  0.90929743,  0.14112001],
+       [-0.7568025 , -0.95892427, -0.2794155 ]])
+```
+
+As evident, NumPy offers a wide variety of matrix operations that allow easy to use ndarrays that are more efficient than using lists in Python. These ndarrays are crucial building blocks in other data science libraries, such as Pandas.  
+
 # 4.5 Practical Pandas
 # 4.6 Pretty Pickle
 # 4.7 Succinct Summary
