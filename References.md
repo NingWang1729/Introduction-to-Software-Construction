@@ -37,6 +37,7 @@
 ## Chapter 4: Python Libraries
 
   - “Argparse - Parser for Command-Line Options, Arguments and Sub-Commands¶.” Argparse - Parser for Command-Line Options, Arguments and Sub-Commands - Python 3.10.6 Documentation, https://docs.python.org/3/library/argparse.html. 
+  - “Numpy.reshape.” Numpy.reshape - NumPy v1.23 Manual, https://numpy.org/doc/stable/reference/generated/numpy.reshape.html. 
 
 #### [Return to Main Table of Contents](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/README.md#table-of-contents)
 Copyright © 2022 Ning Wang  
