@@ -1087,7 +1087,7 @@ While you can save Pandas DataFrames as CSV files, it may become too slow and in
 >>> radish = [1, 2, 3]
 ```
 
-To save an object into a `pickle` file, you need to open a file with "wb" permissions, as you are writing into a file in binary mode.  
+To save an object into a `pickle` file, you need to open a file with "wb" permission, as you are writing to a file in binary mode.  
 
 ```
 >>> with open("radish.pkl", 'wb') as f:
@@ -1096,7 +1096,7 @@ To save an object into a `pickle` file, you need to open a file with "wb" permis
 >>> 
 ```
 
-To load the pickle file again, you will need to open the file with "rb" permission to read a file in binary mode.  
+To load the pickle file again, you will need to open the file with "rb" permission to read a file in binary mode into memory.  
 
 ```
 >>> import pickle
