@@ -411,16 +411,18 @@ bash$
 
 Here, we demonstrated some of the basic usages of the built-in Python debugger, pdb. Debugging is an important skill for software construction, and the pdb debugger is both straight forward and easy to use. For further details and clarification, please refer to the [Official pdb Documentation](https://docs.python.org/3/library/pdb.html).  
 
-# 4.4 Nifty Numpy
+# 4.4 Nifty NumPy
 NumPy is one of the most commonly used packages for data science in Python. While Python has the native `list` data structure, more computational programs will often require large, multi-dimensional arrays. As an interpreted languages, Python is simply too slow for larger applications. However, with compiled C code, packages such as NumPy allow the user to enjoy both the easy to use syntax of Python along with the efficiency of compiled C libraries. NumPy's primary usage revolves the `ndarray`, which allows versatile, multi-dimensional arrays, as well as basic high level math operations. However, unlike `lists`, ndarrays must contain elements of the same type.  
 
-To import NumPy, it is standard to use the following import:
+To import NumPy, it is standard to use the following import:  
+
 ```
 bash$ python3
 >>> import numpy as np
+>>> 
 ```
 
-To create an ndarray, or colloquially, a NumPy array, you can convert an existing `list` object into an ndarray or create an ndarray from scratch.
+To create an ndarray, or colloquially, a NumPy array, you can convert an existing `list` object into an ndarray or create an ndarray from scratch.  
 
 ```
 >>> a = [1, 2, 3]
@@ -442,6 +444,7 @@ array([[1, 2, 3],
 array([[1, 2],
        [3, 4],
        [5, 6]])
+>>> 
 ```
 
 To check the dimensions, or shape, of an ndarray, you can simply access the `shape` attribute. This returns a tuple containing the dimensions of your array.  
@@ -457,6 +460,7 @@ To check the dimensions, or shape, of an ndarray, you can simply access the `sha
 (2, 3)
 >>> e.shape
 (3, 2)
+>>> 
 ```
 
 Given two ndarrays of the same shape, you can perform various matrix operations across the values in the matrix. For example, you can compare the values, add the values, subtract the values, multiply the values, divide the values, or exponentiate the values.  
@@ -476,6 +480,7 @@ array([1, 1, 1])
 array([1, 4, 9])
 >>> a ** b
 array([ 1,  4, 27])
+>>> 
 ```
 
 When working with arrays with different shapes, you may be able to broadcast the shapes of the array depending on whether the matrices have some dimensions that align.  
@@ -488,6 +493,7 @@ ValueError: operands could not be broadcast together with shapes (3,) (4,)
 >>> a + d
 array([[2, 4, 6],
        [5, 7, 9]])
+>>> 
 ```
 
 To perform matrix operations, you can use some of the matrix operations from NumPy. For example, you can multiply matrices with `np.matmul`. For programs with many matrix multiplications, this may become unwieldy, so instead, you can use the `@` symbol as syntactic sugar for matrix multiplication.  
@@ -507,6 +513,7 @@ array([[22, 28],
 array([[ 9, 12, 15],
        [19, 26, 33],
        [29, 40, 51]])
+>>> 
 ```
 
 Some operations may differ between what would mathematically be valid and how NumPy can interpret the operation. For example, you can use `np.matmul` to perform a dot product operation between one dimensional matrices of the same shape.  
@@ -520,6 +527,7 @@ Some operations may differ between what would mathematically be valid and how Nu
 14
 >>> b @ a
 14
+>>> 
 ```
 
 Additionally, matrix operations on one dimensional arrays are more flexible.  
@@ -534,6 +542,7 @@ array([1, 2, 3])
 array([14, 32])
 >>> d @ a
 array([14, 32])
+>>> 
 ```
 
 To change the shape of an array, you can use the `np.reshape()` function. This keeps the data within the array but changes the order of the elements. Alternatively, you can invoke the `reshape` method on an ndarray.  
@@ -551,6 +560,7 @@ array([1, 2, 3])
 >>> d @ a.reshape((3,1))
 array([[14],
        [32]])
+>>> 
 ```
 
 By default, this follows the row-major ordering in C-like languages. You can specify the ordering you wish using the `order` optional parameter.  
@@ -560,6 +570,7 @@ By default, this follows the row-major ordering in C-like languages. You can spe
 array([[1, 5],
        [4, 3],
        [2, 6]])
+>>> 
 ```
 
 Furthermore, if you do not know the full dimensions of your array, but would like a specific earlier dimensions in the shape, you can use -1 to allow NumPy to infer the shape of your reshaped ndarray, as long as the total size is divisible by your specified dimensions.  
@@ -576,6 +587,7 @@ array([[1],
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 ValueError: cannot reshape array of size 6 into shape (4,newaxis)
+>>> 
 ```
 
 Given any ndarray, you can "flatten" the array by using the `ravel()` method. This returns a copy of the values in the array in one dimension. This has the effect of reshaping to dimensions (-1).  
@@ -585,6 +597,7 @@ Given any ndarray, you can "flatten" the array by using the `ravel()` method. Th
 array([1, 2, 3, 4, 5, 6])
 >>> d.reshape((-1))
 array([1, 2, 3, 4, 5, 6])
+>>> 
 ```
 
 Additionally, it is often useful to generate an array of zeros or ones of the same shape as an existing ndarray. Luckily, we can use `np.zeroes_like()` and `np.ones_like()` functions to create such ndarrays.  
@@ -596,6 +609,7 @@ array([[0, 0, 0],
 >>> np.ones_like(d)
 array([[1, 1, 1],
        [1, 1, 1]])
+>>> 
 ```
 
 Like lists, you can use slicing to access a view of an ndarray using the same syntax as you would with slice lists.  
@@ -611,6 +625,20 @@ array([1, 2, 3])
 array([1, 2])
 >>> d.ravel()[::2]
 array([1, 3, 5])
+>>> 
+```
+
+You can also treat NumPy ndarrays as matrices and transpose their orientation.  
+
+```
+>>> d = np.array([[1, 2, 3], [4, 5, 6]])
+>>> d
+array([[1, 2, 3],
+       [4, 5, 6]])
+>>> d.T
+array([[1, 4],
+       [2, 5],
+       [3, 6]])
 ```
 
 Finally, you can apply basic mathematical functions to elements in an ndarray.  
@@ -629,13 +657,461 @@ array([[ 0.54030231, -0.41614684, -0.9899925 ],
 >>> np.sin(d)
 array([[ 0.84147098,  0.90929743,  0.14112001],
        [-0.7568025 , -0.95892427, -0.2794155 ]])
+>>> 
 ```
 
 As evident, NumPy offers a wide variety of matrix operations that allow easy to use ndarrays that are more efficient than using lists in Python. These ndarrays are crucial building blocks in other data science libraries, such as Pandas.  
 
 # 4.5 Practical Pandas
-# 4.6 Pretty Pickle
-# 4.7 Succinct Summary
+Another common data science import is the Pandas package. Pandas allows the use of dataframes, which builds upon NumPy ndarrays with additional metadata. These dataframes are generally two dimensional ndarrays with row and column labels.  
 
+To import Pandas, it is standard to use the following import:  
+
+```
+bash$ python3
+>>> import pandas as pd
+>>> 
+```
+
+To create a Pandas DataFrame, you can pass in a Python dictionary. The keys to the dictionary become the columns to the DataFrame. By default, the index (rows) of the DataFrame will be zero-indexed integers.  
+
+```
+>>> df = pd.DataFrame({ 'A' : [1, 2, 3], 'B' : [4, 5, 6], 'C' : [7, 9 ,9]})
+>>> df
+   A  B  C
+0  1  4  7
+1  2  5  9
+2  3  6  9
+>>> df.columns
+Index(['A', 'B', 'C'], dtype='object')
+>>> df.index
+RangeIndex(start=0, stop=3, step=1)
+>>> 
+```
+
+You can directly alter the index or columns of the DataFrame object by passing in an iterable of the same length.  
+```
+>>> df.index = [2, 4, 6]
+>>> df.columns = ['a', 'b', 'c']
+>>> df
+   a  b  c
+2  1  4  7
+4  2  5  9
+6  3  6  9
+>>> 
+```
+
+An alternative to creating a DataFrame through a dictionary is to pass in an ndarray as input to the DataFrame or list. You can also pass in optional parameters for the index and columns of the DataFrame.  
+
+```
+>>> df = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]], index=['r1', 'r2', 'r3'], columns=['c1', 'c2', 'c3'])
+>>> df
+    c1  c2  c3
+r1   1   2   3
+r2   4   5   6
+r3   7   8   9
+>>> 
+```
+
+While these DataFrame examples are small, it may be infeasible to display a larger DataFrame. To take a peak at the first rows or last rows of the DataFrame, you can use the `head()` and `tail()` methods. You can specify the number of rows as an argument to how many rows to display.  
+
+```
+>>> df.head(2)
+    c1  c2  c3
+r1   1   2   3
+r2   4   5   6
+>>> df.tail(1)
+    c1  c2  c3
+r3   7   8   9
+>>> 
+```
+
+Having row and column metadata is useful for accessing specific entries in the DataFrame by name. Otherwise, you may as well simply use an ndarray. To access entries by column, you can use similar syntax to accessing dictionaries by key. You can also access columns by accessing the column name like an attribute. However, there are advantages to accessing by column name, such as for selecting multiple entries in an order of your choosing.  
+
+```
+>>> df['c1']
+r1    1
+r2    4
+r3    7
+Name: c1, dtype: int64
+>>> df.c1
+r1    1
+r2    4
+r3    7
+Name: c1, dtype: int64
+>>> df[['c1', 'c2']]
+    c1  c2
+r1   1   2
+r2   4   5
+r3   7   8
+>>> df[['c1', 'c2']]
+    c1  c2
+r1   1   2
+r2   4   5
+r3   7   8
+>>> df[['c2', 'c2', 'c1']]
+    c2  c2  c1
+r1   2   2   1
+r2   5   5   4
+r3   8   8   7
+>>> 
+```
+
+To access rows by the index, you can use `.loc`, with similar syntax for accessing the row names.  
+
+```
+>>> df.loc['r1']
+c1    1
+c2    2
+c3    3
+Name: r1, dtype: int64
+>>> df.loc[['r1', 'r2', 'r1']]
+    c1  c2  c3
+r1   1   2   3
+r2   4   5   6
+r1   1   2   3
+>>> 
+```
+
+To retrieve the NumPy ndarray from a given Pandas DataFrame, you can access the `values` attribute of the Pandas DataFrame. This will be in the same shape (index, columns) as the DataFrame.  
+
+```
+>>> df.values
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> assert (len(df.index), len(df.columns)) == df.values.shape
+>>> 
+```
+
+With these ndarrays, you may want to check which values are present in the ndarrays. To find unique values, you can use either `pd.unique()` or `np.unique()` on an ndarray. In general, it is recommended to use `pd.unique()` if you simply want to find the unique values, as `np.unique()` will also sort the unique values. Thus, `pd.unique()` is an O(N) operation, whereas `np.unique()` will be O(NlogN), for N unique values. There are also some slight differences in usage. Using `np.unique()`, you can directly pass in a Pandas DataFrame, whereas you will need to `ravel()` the `values` attribute from the Pandas DataFrame using `pd.unique()`.  
+
+```
+>>> np.unique(df2)
+array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+>>> pd.unique(df2.values.ravel())
+array([1, 2, 3, 6, 5, 4, 7, 8, 9])
+>>> 
+```
+
+Other than unique values, you may want to find a subset of values that are present in some other iterable. The `np.isin()` function allows you to return an one-hot encoding of booleans of whether or not each element in your Pandas DataFrame or NumPy ndarray is present in your other iterable.  
+
+```
+>>> np.isin(df2, [1, 2, 3])
+array([[ True,  True,  True],
+       [False, False, False],
+       [False, False, False]])
+>>> assert np.isin(df2, [1, 2, 3]).shape == df2.shape
+>>> 
+```
+
+With Pandas DataFrames, you may encounter a situation where you may wish to combine two or more Pandas DataFrames together. If these Pandas DataFrames have the same columns, we can simply concatenate them together using `pd.concat`. This returns a new Pandas DataFrame containing the values of an iterable of Pandas DataFrames.  
+
+```
+>>> pd.concat([df, df2])
+    c1  c2  c3
+r1   1   2   3
+r2   4   5   6
+r3   7   8   9
+r1   1   2   3
+r2   6   5   4
+r3   7   8   9
+>>> pd.concat((df, df2))
+    c1  c2  c3
+r1   1   2   3
+r2   4   5   6
+r3   7   8   9
+r1   1   2   3
+r2   6   5   4
+r3   7   8   9
+>>> 
+```
+
+You can also merge Pandas DataFrames based on shared values in the same columns. This is useful for finding intersecting rows of two or more Pandas DataFrames. By default, using the `merge` method on a Pandas DataFrame with another Pandas DataFrame will return a new Pandas DataFrame with the rows that have the same values that are shared between the two Pandas DataFrames.  
+
+```
+>>> df.merge(df2)
+   c1  c2  c3
+0   1   2   3
+1   7   8   9
+>>> 
+```
+
+ Additionally, you can use specify "how" you want to merge the Pandas DataFrames. This allows for some basic Structured Query Language (SQL) commands, such as "left" and "right". Joining on "left" will include all values present on the "left" Pandas DataFrame (the Pandas DataFrame invoking the "merge") along with the intersecting rows, whereas joining on "right" will include all the values of the Pandas DataFrame that is input as the first argument. Of course, this will not be as useful if the Pandas DataFrames all share the same columns.  
+ 
+```
+>>> df.merge(df2, how='left')
+   c1  c2  c3
+0   1   2   3
+1   4   5   6
+2   7   8   9
+>>> df.merge(df2, how='right')
+   c1  c2  c3
+0   1   2   3
+1   6   5   4
+2   7   8   9
+>>> 
+```
+
+This difference is made more apparent when only some columns are shared. Here, "df" and "df3" share the columns "c1" and "c2", so the intersecting values (using the default "inner" join) will have the same values in those two columns. Upon using a "left join" or "right join", also known as an "left outer join" and an "right outer join" using SQL terminology, we will have values that aren't defined int he other Pandas DataFrame. Instead, we will see "NaN" values, which stand for "Not a Number".  
+
+```
+>>> df3 = pd.DataFrame([[1, 2, -3], [6, 5, -4], [7, 8, -9]], index=['r1', 'r2', 'r3'], columns=['c1', 'c2', 'c4'])
+>>> df3
+    c1  c2  c4
+r1   1   2  -3
+r2   6   5  -4
+r3   7   8  -9
+>>> df.merge(df3)
+   c1  c2  c3  c4
+0   1   2   3  -3
+1   7   8   9  -9
+>>> df.merge(df3, how='inner')
+   c1  c2  c3  c4
+0   1   2   3  -3
+1   7   8   9  -9
+>>> df.merge(df3, how='left')
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+1   4   5   6  NaN
+2   7   8   9 -9.0
+>>> df.merge(df3, how='right')
+   c1  c2   c3  c4
+0   1   2  3.0  -3
+1   6   5  NaN  -4
+2   7   8  9.0  -9
+>>> 
+```
+
+Having "NaN" values will often cause issues in computational methods. To drop rows with "NaN" values, we can use the "dropna()" method.  
+
+```
+>>> left_df = df.merge(df3, how='left')
+>>> left_df
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+1   4   5   6  NaN
+2   7   8   9 -9.0
+>>> left_df.dropna()
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+2   7   8   9 -9.0
+>>> 
+```
+
+By default, "NaN" values will be dropped by row, which are along axis 0. You can specify which axis to use when dropping "NaN" values.  
+
+```
+>>> left_df.dropna(axis=0)
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+2   7   8   9 -9.0
+>>> left_df.dropna(axis=1)
+   c1  c2  c3
+0   1   2   3
+1   4   5   6
+2   7   8   9
+>>> 
+```
+
+In general, Pandas methods and functions will return new Pandas DataFrames. If you wanted to modify the current object, you can use the optional parameter "inplace" and set it to True. Here, we will replace the "NaN" values with 0 rather than dropping the "NaN" values.  
+
+```
+>>> left_df.fillna(0)
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+1   4   5   6  0.0
+2   7   8   9 -9.0
+>>> left_df
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+1   4   5   6  NaN
+2   7   8   9 -9.0
+>>> left_df.fillna(0, inplace=True)
+>>> left_df
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+1   4   5   6  0.0
+2   7   8   9 -9.0
+>>> 
+```
+
+Moreover, you may wish to iterate over the values in a Pandas DataFrame. Two common ways are to use the "itertuples" and "iterrows" methods to obtain an iterable that you can loop over. Note that you can use a '*' in front of a variable name to expand multiple values into a tuple object.  
+
+```
+>>> for index, *values in left_df.itertuples():
+...     print(index, values)
+... 
+0 [1, 2, 3, -3.0]
+1 [4, 5, 6, 0.0]
+2 [7, 8, 9, -9.0]
+>>> for index, *values in left_df.iterrows():
+...     print(index, values)
+... 
+0 [c1    1.0
+c2    2.0
+c3    3.0
+c4   -3.0
+Name: 0, dtype: float64]
+1 [c1    4.0
+c2    5.0
+c3    6.0
+c4    0.0
+Name: 1, dtype: float64]
+2 [c1    7.0
+c2    8.0
+c3    9.0
+c4   -9.0
+Name: 2, dtype: float64]
+>>> for values in left_df.iterrows():
+...     print(values)
+... 
+(0, c1    1.0
+c2    2.0
+c3    3.0
+c4   -3.0
+Name: 0, dtype: float64)
+(1, c1    4.0
+c2    5.0
+c3    6.0
+c4    0.0
+Name: 1, dtype: float64)
+(2, c1    7.0
+c2    8.0
+c3    9.0
+c4   -9.0
+Name: 2, dtype: float64)
+>>> 
+```
+
+Additionally, like NumPy ndarrays, you can transpose Pandas DataFrames.  
+
+```
+>>> left_df.T
+      0    1    2
+c1  1.0  4.0  7.0
+c2  2.0  5.0  8.0
+c3  3.0  6.0  9.0
+c4 -3.0  0.0 -9.0
+>>> for index, *values in left_df.T.itertuples():
+...     print(index, values)
+... 
+c1 [1.0, 4.0, 7.0]
+c2 [2.0, 5.0, 8.0]
+c3 [3.0, 6.0, 9.0]
+c4 [-3.0, 0.0, -9.0]
+>>> for index, *values in left_df.T.iterrows():
+...     print(index, values)
+... 
+c1 [0    1.0
+1    4.0
+2    7.0
+Name: c1, dtype: float64]
+c2 [0    2.0
+1    5.0
+2    8.0
+Name: c2, dtype: float64]
+c3 [0    3.0
+1    6.0
+2    9.0
+Name: c3, dtype: float64]
+c4 [0   -3.0
+1    0.0
+2   -9.0
+Name: c4, dtype: float64]
+>>> for values in left_df.T.iterrows():
+...     print(values)
+... 
+('c1', 0    1.0
+1    4.0
+2    7.0
+Name: c1, dtype: float64)
+('c2', 0    2.0
+1    5.0
+2    8.0
+Name: c2, dtype: float64)
+('c3', 0    3.0
+1    6.0
+2    9.0
+Name: c3, dtype: float64)
+('c4', 0   -3.0
+1    0.0
+2   -9.0
+Name: c4, dtype: float64)
+>>> 
+```
+
+Finally, you may wish to save your Pandas DataFrames into secondary storage, where it will be saved when your program finishes. One common format to save these files is as Comma Separated Values (CSV). We can simply do this using the `to_csv()` method for any Pandas DataFrame.  
+
+```
+>>> left_df
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+1   4   5   6  0.0
+2   7   8   9 -9.0
+>>> left_df.to_csv("left_df")
+>>> 
+```
+
+To load a CSV file in Python, we can use the `pd.read_csv()` function to load a CSV file into a Pandas DataFrame.  
+
+```
+>>> left_df = pd.read_csv("left_df.csv")
+>>> left_df
+   Unnamed: 0  c1  c2  c3   c4
+0           0   1   2   3 -3.0
+1           1   4   5   6  0.0
+2           2   7   8   9 -9.0
+>>> 
+```
+
+As you see, we have a slight indexing issue, as our original index did not have an index name, and was thus, left as "Unnamed: 0" when loaded back into memory. To indicate that a specific column should be used as an index, we can specify an "index_col" number when reading the CSV.  
+
+```
+>>> left_df = pd.read_csv("left_df.csv", index_col=0)
+>>> left_df
+   c1  c2  c3   c4
+0   1   2   3 -3.0
+1   4   5   6  0.0
+2   7   8   9 -9.0
+>>> 
+```
+
+Now, we can reliably save and store Pandas DataFrames to and from memory.  
+
+# 4.6 Pretty Pickle
+While you can save Pandas DataFrames as CSV files, it may become too slow and inefficient to save large Pandas DataFrames into CSV files. Additionally, you may have other Python objects that are not as easily formatted as CSV. Instead, you can save the binary values of the Python object using the `pickle` library.  
+
+```
+>>> import pickle
+>>> radish = [1, 2, 3]
+```
+
+To save an object into a `pickle` file, you need to open a file with "wb" permissions, as you are writing into a file in binary mode.  
+
+```
+>>> with open("radish.pkl", 'wb') as f:
+...     pickle.dump(radish, f)
+... 
+>>> 
+```
+
+To load the pickle file again, you will need to open the file with "rb" permission to read a file in binary mode.  
+
+```
+>>> import pickle
+>>> with open("radish.pkl", 'rb') as f:
+...     radish = pickle.load(f)
+... 
+>>> radish
+[1, 2, 3]
+```
+
+Loading pickle files is more efficient, as these are already Python objects. However, this also poses a significant security risk, as it is more difficult to inspect the contents of a pickle file compared to a CSV. Do NOT open a pickle file unless you are absolutely certain that it is safe and trusted.  
+
+# 4.7 Succinct Summary
+Python is a simple and easy to understand programming language. The basic syntax is much more similar to English and more user friendly than the more rigid C-like languages. Moreover, Python has a wide variety of libraries that can be used for nearly any imaginable task. While interpreted code is almost always slower than compiled code, Python libraries can leverage the improved runtime efficiency of compiled C code to achieve a balance between ease of use and high performance. In this chapter, we visited some of the most popular, general use and data science libraries that Python has to offer. More advanced and machine learning specific Python libraries are beyond the scope of this course.  
+
+#### [Return to Main Table of Contents](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/README.md#table-of-contents)
 Copyright © 2022 Ning Wang  
 [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
