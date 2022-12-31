@@ -772,6 +772,33 @@ bash$ ./demo.sh 200
 bash$ 
 ```
 
+Finally, it is useful to be able to use some basic data structures and write some basic functions. Bash arrays are very similar to ordinary variables. However, the implementation may depend on your shell language. In bash, arrays are zero indexed.  
+
+```
+bash$ my_array=(This is an array)
+bash$ echo ${my_array[0]}
+This
+bash$ 
+```
+
+However, in some shell languages, such as zsh, arrays are 1-indexed.  
+
+```
+zsh% my_array=(This is an array)
+zsh% echo ${my_array[1]}
+This
+zsh% 
+```
+
+Functions are fairly similar to functions in C-like languages. You can define a function using parentheses after a function name and enclose the code within curly braces. Functions and arrays are a bit beyond the scope of this course.  
+
+```
+bash$ greet() { echo "Hello World." }
+bash$ greet
+Hello World.
+bash$ 
+```
+
 ## 1.5 Succinct Summary
 The Linux operating system is widely used and held in high regard by most developers. Understanding the ins and outs of the linux operating system is crucial for effective software construction. In this chapter, we introduced the linux operating system with some safe commands, before moving on to some more advanced and more dangerous commands. Later, we provided a precursory introduction to writing shell scripts, with the most common building blocks of any imperative programming language, using variables, loops, and conditionals. This chapter is not all encompassing, and there are various other topics to discuss later in this book. In particular, we will revisit linux in chapter 6 from the perspective of software construction with remote servers. For future reference, please use the [Bash Cheat Sheet](https://devhints.io/bash) for more detailed scripting syntax.  
 
