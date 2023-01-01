@@ -1,7 +1,7 @@
 # Chapter 5: Distributed Development
 
 5. [Distributed Development](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#chapter-4-python-libraries)
-  - 5.1 [Git Good](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#51-agreeable-argparse)
+  - 5.1 [Git Good](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#51-git-good)
   - 5.2 [Secure SSH](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#52-secure-ssh)
   - 5.3 [Compiled Code](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#53-compiled-code)
   - 5.4 [Low Level](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#54-low-level)
