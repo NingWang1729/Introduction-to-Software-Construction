@@ -1042,5 +1042,6 @@ Goodbye!
 Python is a simple, easy to understand language with roughly an S-shaped learning curve. Its primary strengths lie in its easy to use syntax, which reads like English or pseudocode, and the numerous open source Python libraries, which allow Python to easily handle nearly any task. Python is an object oriented, imperative, and interpreted language, with the ability to be compiled into bytecode for faster future runtimes. With pass by object reference, Python avoids the unwieldy syntax that encumbers C-like languages while still allowing easy use of pointers. In this chapter, we covered the basics of the Python scripting language. Next chapter, we will look at some of the numerous libraries that make Python even more versatile. For further reference, please refer to the official [Python3 tutorial](https://docs.python.org/3/tutorial/).  
 
 #### [Return to Main Table of Contents](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/README.md#table-of-contents)
+
 Copyright © 2022 Ning Wang  
 [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/legalcode)

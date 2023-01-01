@@ -1113,5 +1113,6 @@ Loading pickle files is more efficient, as these are already Python objects. How
 Python is a simple and easy to understand programming language. The basic syntax is much more similar to English and more user friendly than the more rigid C-like languages. Moreover, Python has a wide variety of libraries that can be used for nearly any imaginable task. While interpreted code is almost always slower than compiled code, Python libraries can leverage the improved runtime efficiency of compiled C code to achieve a balance between ease of use and high performance. In this chapter, we visited some of the most popular, general use and data science libraries that Python has to offer. More advanced and machine learning specific Python libraries are beyond the scope of this course.  
 
 #### [Return to Main Table of Contents](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/README.md#table-of-contents)
+
 Copyright © 2022 Ning Wang  
 [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
