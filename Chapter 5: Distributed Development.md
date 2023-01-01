@@ -143,7 +143,7 @@ As indicated by the above output, we have some changes in this current file, "Ch
 However, it is recommended that you double check that the changes you intend to stage are the changes you expect to be made. To check the difference between the current file and the previous instance of the file in the previous commit, you can use the `git diff` command, followed by the name of the file. This is an interactive command, so you can use 'q' to exit. If you wanted to jump to the end of the "diff", you can use the "G" vim keybinding (SHIFT + 'g').  
 
 ```
-ningwang@Nings-MacBook-Pro Introduction-to-Software-Construction % git diff
+bash$ git diff
 diff --git a/Chapter 5: Distributed Development.md b/Chapter 5: Distributed Development.md
 index af9e952..453eccf 100644
 --- a/Chapter 5: Distributed Development.md     
@@ -184,8 +184,8 @@ bash$
 Since these are the changes we wanted to make, we can now use `git add` followed by the file name. Alternatively, if you wanted to add all changes not staged for commit, you can use `git add -u` to add all tracked files. Untracked files, in contrast, are "hidden" away from the git version control system. You may want to not track some files if they are not ready to be added, but if you lose your data, then you will not be able to retrieve the untracked files through git version control by reverting to an earlier commit.  
 
 ```
-bash$ ningwang@Nings-MacBook-Pro Introduction-to-Software-Construction % git add "Chapter 5: Distributed Development.md"
-ningwang@Nings-MacBook-Pro Introduction-to-Software-Construction % git status
+bash$ git add "Chapter 5: Distributed Development.md"
+bash$ git status
 On branch master
 Your branch is up to date with 'origin/master'.
 
@@ -207,6 +207,184 @@ Now that we have our saved changes in our staging area, we can finally make a co
 
 ```
 bash$ git commit -m "Added git subchapter to ch5"
+
+[master cbfc0e4] Added git subchapter to ch5
+ 1 file changed, 199 insertions(+)
+bash$ 
+```
+
+To be safe, let's make sure our changes were correctly added. First, let's check our git log to make sure our HEAD is now at our current commit. The HEAD acts like a pointer in the git repository's internal directed acyclic graph structure to indicate which commit should be represented in our current file system.  
+
+```
+bash$ git log
+commit cbfc0e45e1f42dbc5d2a203e15c983d00ec856a0 (HEAD -> master)
+Author: Ning Wang <ningwang1729@gmail.com>
+Date:   Sat Dec 31 23:48:15 2022 -0800
+
+    Added git subchapter to ch5
+
+commit eae1343e1afc8cf1f4d563c5b09c7d1f3f6aed3b (origin/master)
+Author: Ning Wang <ningwang1729@gmail.com>
+Date:   Sat Dec 31 22:27:58 2022 -0800
+
+    fix table of contents link
+
+commit 14f17b09f781a61b12b363b91539cc4ac54b1eb5
+Author: Ning Wang <ningwang1729@gmail.com>
+Date:   Sat Dec 31 22:27:21 2022 -0800
+
+    fix table of contents link
+
+commit f9e06ca923e5bfaa339078d93cd5142e6e9299e1
+Author: Ning Wang <ningwang1729@gmail.com>
+Date:   Sat Dec 31 22:22:30 2022 -0800
+
+    reformat Table of Contents
+bash$ 
+```
+
+As indicated above, our HEAD is at the current commit. The "HEAD->master" indicates that we are on our master branch. The "origin/master" indicates that the remote github repository is at the previous commit. A remote is a repository that is not local to your machine. The standard name for remotes is usually "origin", and the standard name for the primary branch of the repository is usually "master". This branch should contain the "true" contents of a repository, and is sometimes referred to as "development" or "main". Branches offer a safe way for multiple developers to work on a single repository without worrying about immediately overwriting someone else's work.  
+
+Before branching off to how to create and switch between branches, let's first check that our commit is correct. We can use the `git diff` command on commit IDs or hashes to check differences in contents.  
+
+```
+bash$ git diff eae1343e1afc8cf1f4d563c5b09c7d1f3f6aed3b cbfc0e45e1f42dbc5d2a203e15c983d00ec856a0
+diff --git a/Chapter 5: Distributed Development.md b/Chapter 5: Distributed Development.md
+index af9e952..f610683 100644
+--- a/Chapter 5: Distributed Development.md     
++++ b/Chapter 5: Distributed Development.md     
+@@ -9,7 +9,206 @@
+   - 5.6 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#56-succinct-summary)
+ 
+ # 5.1 Git Good
++Why version control? Writing code takes enough time and energy as is, so why do we need to use additional commands and APIs on top of simply writing our source code? Unfortunately, developers are not perfect and may often need to fix code that does not work first try. Even worse, sometimes you might accidentally introduce new ~~bugs~~features after making code changes and find it difficult to undo all of your changes. These are some issues that may arise when working on a personal project or homework assignment.  
+ 
++Rather than use a bunch of files named code\_v1.py, code\_v2.py, code\_v3.py, code\_old.py, code\_doesn't\_work.py, code\_copy.py, and code.py it would be nice if you could simply revert some of the changes. Additionally, if you accidentally renamed code.py to code_v3.py, and discover a bug, you would have lost your p
+bash$ 
+```
+
+As it can be a bit verbose to use entire commit hashes, you can instead use the first four characters of the hashes.  
+
+```
+bash$ git diff eae1 cbfc
+diff --git a/Chapter 5: Distributed Development.md b/Chapter 5: Distributed Development.md
+index af9e952..f610683 100644
+--- a/Chapter 5: Distributed Development.md     
++++ b/Chapter 5: Distributed Development.md     
+@@ -9,7 +9,206 @@
+   - 5.6 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#56-succinct-summary)
+ 
+ # 5.1 Git Good
++Why version control? Writing code takes enough time and energy as is, so why do we need to use additional commands and APIs on top of simply writing our source code? Unfortunately, developers are not perfect and may often need to fix code that does not work first try. Even worse, sometimes you might accidentally introduce new ~~bugs~~features after making code changes and find it difficult to undo all of your changes. These are some issues that may arise when working on a personal project or homework assignment.  
+ 
++Rather than use a bunch of files named code\_v1.py, code\_v2.py, code\_v3.py, code\_old.py, code\_doesn't\_work.py, code\_copy.py, and code.py it would be nice if you could simply revert some of the changes. Additionally, if you accidentally renamed code.py to code_v3.py, and discover a bug, you would have lost your p
+bash$ 
+```
+
+Moreover, since it is so common to compare the HEAD commit with previous commits, you can instead simply use HEAD instead of the commit ID.  
+
+```
+bash$ git diff eae1..HEAD
+diff --git a/Chapter 5: Distributed Development.md b/Chapter 5: Distributed Development.md
+index af9e952..f610683 100644
+--- a/Chapter 5: Distributed Development.md     
++++ b/Chapter 5: Distributed Development.md     
+@@ -9,7 +9,206 @@
+   - 5.6 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#56-succinct-summary)
+ 
+ # 5.1 Git Good
++Why version control? Writing code takes enough time and energy as is, so why do we need to use additional commands and APIs on top of simply writing our source code? Unfortunately, developers are not perfect and may often need to fix code that does not work first try. Even worse, sometimes you might accidentally introduce new ~~bugs~~features after making code changes and find it difficult to undo all of your changes. These are some issues that may arise when working on a personal project or homework assignment.  
+ 
++Rather than use a bunch of files named code\_v1.py, code\_v2.py, code\_v3.py, code\_old.py, code\_doesn't\_work.py, code\_copy.py, and code.py it would be nice if you could simply revert some of the changes. Additionally, if you accidentally renamed code.py to code_v3.py, and discover a bug, you would have lost your p
+bash$ 
+```
+
+Since it's common to compare the HEAD with the previous commit, this can be further simplified with "HEAD^!".  
+
+```
+bash$ git diff HEAD^!
+diff --git a/Chapter 5: Distributed Development.md b/Chapter 5: Distributed Development.md
+index af9e952..f610683 100644
+--- a/Chapter 5: Distributed Development.md     
++++ b/Chapter 5: Distributed Development.md     
+@@ -9,7 +9,206 @@
+   - 5.6 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#56-succinct-summary)
+ 
+ # 5.1 Git Good
++Why version control? Writing code takes enough time and energy as is, so why do we need to use additional commands and APIs on top of simply writing our source code? Unfortunately, developers are not perfect and may often need to fix code that does not work first try. Even worse, sometimes you might accidentally introduce new ~~bugs~~features after making code changes and find it difficult to undo all of your changes. These are some issues that may arise when working on a personal project or homework assignment.  
+ 
++Rather than use a bunch of files named code\_v1.py, code\_v2.py, code\_v3.py, code\_old.py, code\_doesn't\_work.py, code\_copy.py, and code.py it would be nice if you could simply revert some of the changes. Additionally, if you accidentally renamed code.py to code_v3.py, and discover a bug, you would have lost your p
+bash$ 
+```
+
+Branching back to branches, you can check the branches currently available using the `git branch` command. If you use `git branch` followed by a branch name, you are creating a new branch with that name that is on par with the current branch. The asterisk '*' indicates which branch is currently active.  
+
+```
+bash$ git branch
+* master
+  temp
+bash$ 
+```
+
+To checkout a branch, you can use the `git checkout` followed by the branch name. If you want to create a branch and checkout the same branch, you can use `git checkout -b` followed by the branch name. This is functionally the same as using `git branch BRANCHNAME; git checkout BRANCHNAME`. You can also checkout specific commits by specifying the commit ID.  
+
+Finally, you can view which remotes you are connected to with the `git remote` command. To add a remote, you can use `git remote add NAMEOFREMOTE` followed by the URL to the remote repository.  
+
+```
+bash$ git remote
+origin
+bash$ git remote add origin git@github.com:NingWang1729/Introduction-to-Software-Construction.git
+bash$ 
+```
+
+To push commits to the remote repository, you can use the command `git push origin master`, assuming your remote is named origin and you are pushing to the master branch. If you are working with other people, you should have separate branches to push to and merge branches into master after checking the code. Sometimes, you will encounter merge conflicts, which will require manual resolution. If there is a branch you will often push changes to and pull changes from, you can set git to track that specific branch with the "-u" flag.  
+
+```
+bash$ git push -u origin master
+Enter passphrase for key '/Users/ningwang/.ssh/id_rsa': 
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 5.29 KiB | 2.65 MiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:NingWang1729/Introduction-to-Software-Construction.git
+   eae1343..cbfc0e4  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+```
+
+Pulling means to retrieve the changes in the upstream git repository into your local repository. Here, we are up to date with the remote repository since we just pushed our latest commit.  
+
+```
+bash$ git pull origin master
+Enter passphrase for key '/Users/ningwang/.ssh/id_rsa': 
+From github.com:NingWang1729/Introduction-to-Software-Construction
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+bash$ git pull    
+Enter passphrase for key '/Users/ningwang/.ssh/id_rsa': 
+Already up to date.
+bash$ 
+```
+
+Finally, you may want to clone a remote repository onto your local machine. All you need to do is to use the `git clone` command followed by the URL of the remote repository.  
+
+```
+bash$ mkdir foobar; cd foobar
+bash foobar$git clone git@github.com:NingWang1729/Introduction-to-Software-Construction.git
+Cloning into 'Introduction-to-Software-Construction'...
+Enter passphrase for key '/Users/ningwang/.ssh/id_rsa': 
+remote: Enumerating objects: 74, done.
+remote: Counting objects: 100% (74/74), done.
+remote: Compressing objects: 100% (52/52), done.
+remote: Total 74 (delta 45), reused 51 (delta 22), pack-reused 0
+Receiving objects: 100% (74/74), 85.46 KiB | 711.00 KiB/s, done.
+Resolving deltas: 100% (45/45), done.
+bash foobar$ ls
+Introduction-to-Software-Construction
+bash foobar$ cd ..
+bash$ rm -rf foobar
 bash$ 
 ```
 
