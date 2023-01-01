@@ -43,8 +43,6 @@ This project aims to provide a precursory introduction to the art of software co
   - 5.6 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#56-succinct-summary)
 
 ### [References](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/References.md#current-list-of-references)
-
 ### [License](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/License.md)
-
 Copyright © 2022 Ning Wang  
 [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/legalcode)

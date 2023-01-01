@@ -9,7 +9,7 @@
   - 4.6 [Pretty Pickle](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#46-pretty-pickle)
   - 4.7 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#47-succinct-summary)
 
-# 4.1 Agreeable Argparse
+## 4.1 Agreeable Argparse
 
 With more complex tasks, it is often useful to write a Python script, that is, a file that contains multiple lines of Python code. While we could edit the code to handle various files by hard coding in various values, this is not practical when you may need to run code multiple times with different values. Thus, it is useful to have a library, or collection of well documented code with a specific purpose, for handling command line arguments. To import a `module`, an instance of a library, you can use the keyword `import`, followed by the module name. Python modules are organized inside "packages". Imports also work for importing code from your own Python files. When importing functions from a ".py" file, place the name of the file (without the ".py") after the `import` keyword. Note that the file name has a higher priority than a library import, so it is highly recommended to not name your files the same name as a library import to avoid self-inflicted confusion.  
 
@@ -196,7 +196,7 @@ bash$
 
 Argparse provides a modern approach to parsing command line arguments. For further reference, please refer to the [official argparse documentation](https://docs.python.org/3/library/argparse.html). Also, you may wish to reference the `system` and `os` modules, which are sometimes used together with argparse.  
 
-# 4.2 Logical Logging
+## 4.2 Logical Logging
 Python is a high level language, which means it provides many syntactic sugars to make it easier for the programmer to write code, abstracting away the lower level implementations of the code. For example, while the `print` function will output some text, it does not immediately execute the print operation after the line of code telling Python to print is executed. This may be problematic if you were expecting the `print` statement to provide a log of how the program is performing as it is running in real time. While you could set the "flush" argument to 'True', forcing the print statement to immediately execute, manually formatting every print statement would be both tedious and redundant when you could simply use the Python logging module. 
 
 To import the logging module, simply `import logging`. To mimic the behavior of print statements, you can use the lowest level of logging, which is "DEBUG". There are 6 default levels of logging, which are "NOTSET", "DEBUG", "INFO", "WARNING", "ERROR", and "CRITICAL", which have the numerical values of 0, 10, 20, 30, 40, and 50 respectively. If you were to use your own levels, they should account for the numerical levels relative to the default values. To output a log message with a specified level, you can simply call that level's respective method, with the string you would like to output as the argument.  
@@ -269,7 +269,7 @@ except Exception as e:
 
 Furthermore, you can add more detailed filters as well as adjust module level settings. If you are interested in more complex usage of the logging module, please refer to the [Official Logging Documentation](https://docs.python.org/3/library/logging.html).
 
-# 4.3 Potent PDB
+## 4.3 Potent PDB
 It would be remiss to discuss logging and debugging without mentioning the built in Python debugger, pdb. The pdb module can be used either as a module import, or on the command line. For the purposes of this tutorial, we will use pdb while executing the command line temperature script. Note that "(Pdb)" is the prompt for executing debugging instructions.  
 
 ```
@@ -411,7 +411,7 @@ bash$
 
 Here, we demonstrated some of the basic usages of the built-in Python debugger, pdb. Debugging is an important skill for software construction, and the pdb debugger is both straight forward and easy to use. For further details and clarification, please refer to the [Official pdb Documentation](https://docs.python.org/3/library/pdb.html).  
 
-# 4.4 Nifty NumPy
+## 4.4 Nifty NumPy
 NumPy is one of the most commonly used packages for data science in Python. While Python has the native `list` data structure, more computational programs will often require large, multi-dimensional arrays. As an interpreted languages, Python is simply too slow for larger applications. However, with compiled C code, packages such as NumPy allow the user to enjoy both the easy to use syntax of Python along with the efficiency of compiled C libraries. NumPy's primary usage revolves the `ndarray`, which allows versatile, multi-dimensional arrays, as well as basic high level math operations. However, unlike `lists`, ndarrays must contain elements of the same type.  
 
 To import NumPy, it is standard to use the following import:  
@@ -662,7 +662,7 @@ array([[ 0.84147098,  0.90929743,  0.14112001],
 
 As evident, NumPy offers a wide variety of matrix operations that allow easy to use ndarrays that are more efficient than using lists in Python. These ndarrays are crucial building blocks in other data science libraries, such as Pandas.  
 
-# 4.5 Practical Pandas
+## 4.5 Practical Pandas
 Another common data science import is the Pandas package. Pandas allows the use of dataframes, which builds upon NumPy ndarrays with additional metadata. These dataframes are generally two dimensional ndarrays with row and column labels.  
 
 To import Pandas, it is standard to use the following import:  
@@ -1079,7 +1079,7 @@ As you see, we have a slight indexing issue, as our original index did not have 
 
 Now, we can reliably save and store Pandas DataFrames to and from memory.  
 
-# 4.6 Pretty Pickle
+## 4.6 Pretty Pickle
 While you can save Pandas DataFrames as CSV files, it may become too slow and inefficient to save large Pandas DataFrames into CSV files. Additionally, you may have other Python objects that are not as easily formatted as CSV. Instead, you can save the binary values of the Python object using the `pickle` library.  
 
 ```
@@ -1109,10 +1109,9 @@ To load the pickle file again, you will need to open the file with "rb" permissi
 
 Loading pickle files is more efficient, as these are already Python objects. However, this also poses a significant security risk, as it is more difficult to inspect the contents of a pickle file compared to a CSV. Do NOT open a pickle file unless you are absolutely certain that it is safe and trusted.  
 
-# 4.7 Succinct Summary
+## 4.7 Succinct Summary
 Python is a simple and easy to understand programming language. The basic syntax is much more similar to English and more user friendly than the more rigid C-like languages. Moreover, Python has a wide variety of libraries that can be used for nearly any imaginable task. While interpreted code is almost always slower than compiled code, Python libraries can leverage the improved runtime efficiency of compiled C code to achieve a balance between ease of use and high performance. In this chapter, we visited some of the most popular, general use and data science libraries that Python has to offer. More advanced and machine learning specific Python libraries are beyond the scope of this course.  
 
 #### [Return to Main Table of Contents](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/README.md#table-of-contents)
-
 Copyright © 2022 Ning Wang  
 [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
