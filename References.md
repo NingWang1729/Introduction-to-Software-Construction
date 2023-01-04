@@ -42,6 +42,8 @@
 ## Chapter 5: Distributed Development
 
   - Team, Content. “Git Remote Add Origin.” Askavy, 25 Oct. 2022, https://askavy.com/git-remote-add-origin/. 
+  - “Generating a New SSH Key and Adding It to the Ssh-Agent.” GitHub Docs, https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent. 
+  - “RSA (Cryptosystem).” Wikipedia, Wikimedia Foundation, 19 Dec. 2022, https://en.wikipedia.org/wiki/RSA_(cryptosystem). 
 
 #### [Return to Main Table of Contents](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/README.md#table-of-contents)
 Copyright © 2022 Ning Wang  

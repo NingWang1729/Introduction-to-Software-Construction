@@ -9,7 +9,7 @@
   - 5.6 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%205:%20Distributed%20Development.md#56-succinct-summary)
 
 # 5.1 Git Good
-Why version control? Writing code takes enough time and energy as is, so why do we need to use additional commands and APIs on top of simply writing our source code? Unfortunately, developers are not perfect and may often need to fix code that does not work first try. Even worse, sometimes you might accidentally introduce new ~~bugs~~features after making code changes and find it difficult to undo all of your changes. These are some issues that may arise when working on a personal project or homework assignment.  
+Why do we need version control? Writing code takes enough time and energy as is, so why do we need to use additional commands and APIs on top of simply writing our source code? Unfortunately, developers are not perfect and may often need to fix code that does not work first try. Even worse, sometimes you might accidentally introduce new ~~bugs~~features after making code changes and find it difficult to undo all of your changes. These are some issues that may arise when working on a personal project or homework assignment.  
 
 Rather than use a bunch of files named code\_v1.py, code\_v2.py, code\_v3.py, code\_old.py, code\_doesn't\_work.py, code\_copy.py, and code.py it would be nice if you could simply revert some of the changes. Additionally, if you accidentally renamed code.py to code_v3.py, and discover a bug, you would have lost your previous code and have a much more difficult time recovering your previously incomplete but functional code.  
 
@@ -23,7 +23,7 @@ For example, let's examine the ".git" directory of the "Introduction to Software
 
 ```
 bash$ git init
-Reinitialized existing Git repository in /Users/ningwang/bio_lab/Introduction-to-Software-Construction/.git/
+Reinitialized existing Git repository in /Users/joebruin/bio_lab/Introduction-to-Software-Construction/.git/
 bash$ cd .git
 bash .git$ ls
 COMMIT_EDITMSG	ORIG_HEAD	description	info		refs
@@ -341,7 +341,7 @@ To push commits to the remote repository, you can use the command `git push orig
 
 ```
 bash$ git push -u origin master
-Enter passphrase for key '/Users/ningwang/.ssh/id_rsa': 
+Enter passphrase for key '/Users/joebruin/.ssh/id_rsa': 
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
 Delta compression using up to 4 threads
@@ -358,12 +358,12 @@ Pulling means to retrieve the changes in the upstream git repository into your l
 
 ```
 bash$ git pull origin master
-Enter passphrase for key '/Users/ningwang/.ssh/id_rsa': 
+Enter passphrase for key '/Users/joebruin/.ssh/id_rsa': 
 From github.com:NingWang1729/Introduction-to-Software-Construction
  * branch            master     -> FETCH_HEAD
 Already up to date.
 bash$ git pull    
-Enter passphrase for key '/Users/ningwang/.ssh/id_rsa': 
+Enter passphrase for key '/Users/joebruin/.ssh/id_rsa': 
 Already up to date.
 bash$ 
 ```
@@ -374,7 +374,7 @@ Finally, you may want to clone a remote repository onto your local machine. All 
 bash$ mkdir foobar; cd foobar
 bash foobar$git clone git@github.com:NingWang1729/Introduction-to-Software-Construction.git
 Cloning into 'Introduction-to-Software-Construction'...
-Enter passphrase for key '/Users/ningwang/.ssh/id_rsa': 
+Enter passphrase for key '/Users/joebruin/.ssh/id_rsa': 
 remote: Enumerating objects: 74, done.
 remote: Counting objects: 100% (74/74), done.
 remote: Compressing objects: 100% (52/52), done.
@@ -389,7 +389,74 @@ bash$
 ```
 
 # 5.2 Secure SSH
+As you may have noticed, the above git commands that were connecting to a remote repository used a Secure Shell (SSH) key rather than a web URL using Hypertext Transport Protocol Secure (HTTPS). SSH keys provide additional cybersecurity, as they can be used for better identifying the user and ensuring the user has permissions to access a remote repository. The SSH key itself is split into two parts: a public key and a private key. The public key is safe for anyone to have acess to in order to verify that you are who you claim to be. In contrast, the private key is known only to the user. This acts like a lock and key mechanism. The public keys are similar to locks that anyone can have access to, but only the user has the private key, which can unlock the locks.  
 
+The simplest way to create an SSH key is to use the command `ssh-keygen`. By default, this uses the Rivest–Shamir–Adleman (RSA) algorithm.  
+
+```
+bash$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/cs111/.ssh/id_rsa): /home/cs111/.ssh/id_rsa
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/cs111/.ssh/id_rsa
+Your public key has been saved in /home/cs111/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:OGv4uP9vMQRLeXSl2jED4pxakXHWwVwZcLlEKPNEQQ4 cs111@cs111
+The key's randomart image is:
++---[RSA 3072]----+
+|        +=E*BO*+ |
+|       o=*+=*o+  |
+|       .=+ =*. . |
+|       +. .o.+.  |
+|      + S.. .    |
+|     . o  o      |
+|    . o    o     |
+|     +    .      |
+|    ooo..o.      |
++----[SHA256]-----+
+bash$ 
+```
+
+Now that you have generated a new SSH key, you will want to add it to wherever you are storing your remote repositories. For GitHub, you can add an SSH key to your account [here](https://github.com/settings/ssh/new). You will need to copy over the contents of your public key. Your public key will have the same file name as your private key, with a ".pub" suffix appended at the end.  
+
+```
+bash$ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD0mkLgAwS9eZ6NjLBvErdA4Gg4mJykNyXO6EvVOJ2yYAAhk6yc3oEbpWYd499JSfq29L5TQvA1qitljWLe+u/u2ibmkYyb4yl5bP9jclBbiLayUKsipbK9fsIScleStEYcOvhRttaH1IfihCoc0mgnhVlVzqhzKKqR8wNVw2Tav4nUzpXA5VOW5Yr4unNMWZ885uBQYjf6aptSJ+z8uSJPXKwUhrbDoXpzAEO8qhf6h7DZ13KDYyqvlR8lrGm0Uft0UYnx7is/QqwmT8H4Jc6YWoFzq6wFdfs61lxEgAyBXFHSBcOzaAAbtaZ7Qd46y37P3lDvqNkNqccps1I6igLPpKirPGtjCKX/J+qI0pQdgAnMAWQkE5U0StoU0x7AFlqX7JNQueaR3Vl+NytlK4qT9wiXMPNHwn9h4HpguuFUuS3YrFveeM8+XpMp9ZLXOmnZaQLKmOAiIa5AOlZ8f/OGBibJlO4w0jax8Jg8wn8HfnboG7RQcwedtawZcwzr5yM= cs111@cs11
+```
+
+Additionally, you can add a comment to your SSH key for future reference.  
+
+```
+bash$ ssh-keygen -C "Fancy comment."
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/cs111/.ssh/id_rsa): /home/cs111/.ssh/id_rsa
+/home/cs111/.ssh/id_rsa already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/cs111/.ssh/id_rsa
+Your public key has been saved in /home/cs111/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:gKF0Dx9Fsu1UWM4IAREweUe3dd5ZABaF01bC5AmWXWg Fancy comment.
+The key's randomart image is:
++---[RSA 3072]----+
+|  +oB=*++o+ B@==+|
+| ..+.*.B.B =++E= |
+|  ....= = o .+=  |
+|       +         |
+|        S        |
+|                 |
+|                 |
+|                 |
+|                 |
++----[SHA256]-----+
+bash$ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfVeqh+aqv6uf+VNL6KBbN13cncQ0oQhqa5FVbTgzOVAxfvnOvsVgY1qLaZXZZxoGLADi66ez5HybkQ1/6hXrWEsBaK57FOKw512/LyC1eloE/J9EuyJIQW54pJrpMeODapZKkmD51qY7Eq/FEkuKL1x2LkxLgGFDR4cirIBTyeflDGZ0splzLVHSZVy44ODX7MVi+EUzsWMGjoSNtEprxOuAvq4OtW45sAPmAEcOIN4H1zh0oN9p+wYL4ZkSeBL34CwwpOp4Fk7OOVspJKAV23unDSOqxuRRaIqQQaCOjtp5c0fKSwBa42HeduYQ9PtUnBMFu1YX5zLqrXx1NCryc+DttB/9Jd63K7L+LWrbNUrQtk+nc62sV+STw5mEn11t83BOMBDolKFL4N4IaVCcyoAZdtiPfgFI2mnUjJjEiKL8Szdj1Ylm7DP+avu2dJWbnsNQXVmtdQiIQiZRjDTUQ1RHKrKy06ZYwH7fjzJolnnFiM/o/ZAGG2RnUKDpaxIU= Fancy comment.
+bash$ 
+```
+
+Once this is finished, you can view your saved SSH keys [here](https://github.com/settings/keys). While it is safe to share public keys, do not share your private keys, as they can be used to impersonate you.  
 
 # 5.3 Compiled Code
 

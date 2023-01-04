@@ -8,7 +8,6 @@
 - 3.5 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%203:%20Python%20Basics.md#35-succinct-summary)
 
 ## 3.1 Simple Syntax
-
 Python is the easiest to learn programming language. With English-like syntax, it is easy for anyone who is fluent in English to pick up Python as a programming language, especially if they are already familiar with traditional, C-like object oriented languages. In this chapter, we will cover many of the core Python syntax and features, excluding any library imports, which will be covered in the next chapter. In general, you will be writing Python code in a Python script, a Python source code file with the ".py" extension. To start working with Python, however, we will use the command `python3`, which will open the Python 3 REPL in the terminal. You may be able to use just `python` to run Python 3. If you are running a Python script named "foo.py", you can run the script using `python3 foo.py`, or use the corresponding path for your Python command.  
 
 For the purposes of this tutorial, we will be using Python 3 version 3.10 or higher, rather than the older Python 2, which has slightly different syntax from Python 3. From here on out, we will be referring Python exclusively to Python 3, unless otherwise specified. Some later features in the "Advanced Actions" sub-chapter will also require Python version 3.10 or higher, while the rest of the contents will only be requiring Python version 3.7 or higher. To check `which` version you are using, you can use `which` to find the path where the command is located, and you can use "--version" flag after the respective `python` command to check for the exact version number you are using.  
@@ -261,7 +260,6 @@ ValueError: slice step cannot be zero
 ```
 
 ## 3.2 Building Blocks
-
 Strings are an example of a sequence, which are ordered groups of objects. Strings in Python are immutable, meaning that a string cannot change its value once it is initialized. Changing the value of an identifier that currently has a string value is simply assigning a different object reference to that identifier. The most commonly used type of sequence in Python is the `list`, which is equivalent to dynamically allocated arrays in other languages. Python lists can contain objects of any type and are mutable, meaning you can change the values inside the `list`. When initialized, lists have a certain amount of memory allocated for storing the references. If a list runs out of space, it will allocate twice the amount of memory to store these references, and copy over the previously stored elements' references. Thus, inserting elements into a list has an amortized time complexity of O(1), meaning insertion is very fast in a Python list.  
 
 To initiate a `list`, you can either use square brackets, "[]", or the `list` function. To start with an empty list, you would leave the `list` empty, or not put any values in it at the start. To initialize a list with square brackets with some starting values, you can separate the objects using commas, ','. While spaces after the commas are not strictly necessary, having clear spacing and indentation style that you maintain over time will help make your code more clear and easier to read. To convert an existing sequence to a list, you can pass the reference to the sequence object to the `list` function. To find the length of a sequence, you can pass the reference to the sequence into the `len` function.  
@@ -679,7 +677,6 @@ However, Python does support bitwise operators, such as bitwise AND, '&', bitwis
 ```
 
 ## 3.3 Critical Classes
-
 Python is an object-oriented programming (OOP) language, meaning its basic building blocks revolve around objects, which are instances of classes. To create a class, you can use the keyword `class`, followed by the name of your class and a colon. Within each class, there are class methods, which allow the object to call pieces of code, and attributes, which are objects that belong to the class. Every class must have a constructor, which is called upon instantiating the class. If the user does not define one, Python will have a default constructor that does not do anything special. This constructor will always have the name `__init__`. Note that we used `pass` to avoid adding any code to the "animal" class. This is due to Python syntax not allowing colons without any lines of code indented afterwards. The keyword `pass` is a "no-op", which is code that simply exists but does not do anything. Class methods will also always have `self`, a reference to the instance of the class, as the first positional argument.  
 
 ```
@@ -794,7 +791,6 @@ I am a mockingbird with 11 hp and 3 atk.
 ```
 
 ## 3.4 Advanced Actions
-
 Some advanced concepts include structural pattern matching, iterators, decorators, and file handling. Structural pattern matching, introduced in Python 3.10, combines features from other languages, such as switch-case, "cond", and match statements from C-like languages, Lisp languages, and ML-like languages, respectively. Rather than nesting numerous if-statements, structural pattern matching allows a more structured format for finding matches within a list. Like most control statements in Python, pattern matching uses the `match` keyword, followed by a list to match with, and then a colon to start the indentation. In each `case`, you can have some sort of pattern to match.  
 
 ```
@@ -1038,7 +1034,6 @@ Goodbye!
 ```
 
 ## 3.5 Succinct Summary
-
 Python is a simple, easy to understand language with roughly an S-shaped learning curve. Its primary strengths lie in its easy to use syntax, which reads like English or pseudocode, and the numerous open source Python libraries, which allow Python to easily handle nearly any task. Python is an object oriented, imperative, and interpreted language, with the ability to be compiled into bytecode for faster future runtimes. With pass by object reference, Python avoids the unwieldy syntax that encumbers C-like languages while still allowing easy use of pointers. In this chapter, we covered the basics of the Python scripting language. Next chapter, we will look at some of the numerous libraries that make Python even more versatile. For further reference, please refer to the official [Python3 tutorial](https://docs.python.org/3/tutorial/).  
 
 #### [Return to Main Table of Contents](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/README.md#table-of-contents)

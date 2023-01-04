@@ -10,7 +10,6 @@
   - 4.7 [Succinct Summary](https://github.com/NingWang1729/Introduction-to-Software-Construction/blob/master/Chapter%204:%20Python%20Libraries.md#47-succinct-summary)
 
 ## 4.1 Agreeable Argparse
-
 With more complex tasks, it is often useful to write a Python script, that is, a file that contains multiple lines of Python code. While we could edit the code to handle various files by hard coding in various values, this is not practical when you may need to run code multiple times with different values. Thus, it is useful to have a library, or collection of well documented code with a specific purpose, for handling command line arguments. To import a `module`, an instance of a library, you can use the keyword `import`, followed by the module name. Python modules are organized inside "packages". Imports also work for importing code from your own Python files. When importing functions from a ".py" file, place the name of the file (without the ".py") after the `import` keyword. Note that the file name has a higher priority than a library import, so it is highly recommended to not name your files the same name as a library import to avoid self-inflicted confusion.  
 
 ```
